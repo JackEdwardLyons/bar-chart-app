@@ -1,7 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef  } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GDPService } from '../../services/GDP.service';
-import { NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-bar-chart',
@@ -10,7 +9,7 @@ import { NgZone } from '@angular/core';
   providers: [ GDPService ]
 })
 export class BarChartComponent implements OnInit {
-// lineChart
+  // lineChart
   public lineChartData:Array<any> = [
     { data: [], label: "GDP in USA ($'000) " }
   ];
@@ -19,9 +18,7 @@ export class BarChartComponent implements OnInit {
 
   
 
-  constructor(private GDPService: GDPService) { 
-    // NgZone.assertInAngularZone();
-  }
+  constructor(private GDPService: GDPService) { }
 
   ngOnInit() {
     this.getData();
@@ -37,9 +34,11 @@ export class BarChartComponent implements OnInit {
       });
   }
  
-  randomizeType() {
+  randomizeType(el) {
     this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
-    console.log(this.lineChartType, this.lineChartLabels)
+    // console.log(this.lineChartType, this.lineChartLabels);
+    el.remove();
+    console.log(el);
   }
  
   public chartClicked(e:any):void {
